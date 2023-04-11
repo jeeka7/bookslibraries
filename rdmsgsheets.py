@@ -1,19 +1,17 @@
-import sqlite3
+# streamlit_app.py
 
-# Connect to SQLite database
-conn = sqlite3.connect('library.db')
-cursor = conn.cursor()
+import pandas as pd
+import streamlit as st
 
-# Create the library table
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS library (
-    library_id INTEGER PRIMARY KEY,
-    library_name TEXT,
-    due_date TEXT,
-    total_fine REAL
-)
-''')
+# Read in data from the Google Sheet.
+# Uses st.cache_data to only rerun when the query changes or after 10 min.
+@st.cache_data(ttl=600)
+def load_data(sheets_url):
+    csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
+    return pd.read_csv(csv_url)
 
-# Commit the changes and close the connection
-conn.commit()
-conn.close()
+df = load_data(st.secrets[gsheets_url])
+
+# Print results.
+for row in df.itertuples():
+    st.write(f"{row.libraryname} has a due date on :{row.duedate} with a fine of {row.totalfine} ")
