@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load the Google Sheets database into a pandas DataFrame
-url = 'https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID_HERE/edit#gid=0'
+url = 'https://docs.google.com/spreadsheets/d/1xW-KOWkyjw5um3Tq6gYsvo00c1Q0pNDWJyr5K7JZPQU/edit#gid=0'
 df = pd.read_csv(url)
 
 # Set the Library ID column as the index
